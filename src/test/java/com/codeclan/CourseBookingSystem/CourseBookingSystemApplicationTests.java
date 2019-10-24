@@ -54,4 +54,10 @@ class CourseBookingSystemApplicationTests {
 		List<Course> foundCourses = courseRepository.findAllCoursesForCustomer("Alex");
 		assertEquals("Vue", foundCourses.get(0).getName());
 	}
+
+	@Test
+	public void canFindCustomersWithTownAndCourse(){
+		List<Customer> foundCustomers = customerRepository.findAllCustomersForTownAndCourse("Edinburgh", "Vue");
+		assertEquals("Joe", foundCustomers.get(0).getName());
+	}
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface CustomerRepositoryCustom {
 
-    public List<Customer> findAllCustomersForCourse(String name);
+    List<Customer> findAllCustomersForCourse(String name);
+    List<Customer> findAllCustomersForTownAndCourse(String  customerTown, String courseName);
 
 }

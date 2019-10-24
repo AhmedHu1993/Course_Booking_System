@@ -23,4 +23,9 @@ public class CustomerController {
         return customerRepository.findAllCustomersForCourse(name);
     }
 
+    @GetMapping(value = "/town-and-course")
+    public List<Customer> findAllCustomersForTownAndCourse(@RequestParam String town, String course){
+        return customerRepository.findAllCustomersForTownAndCourse(town, course);
+    }
+
 }
