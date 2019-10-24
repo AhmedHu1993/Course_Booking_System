@@ -2,8 +2,10 @@ package com.codeclan.CourseBookingSystem;
 
 import com.codeclan.CourseBookingSystem.models.Booking;
 import com.codeclan.CourseBookingSystem.models.Course;
+import com.codeclan.CourseBookingSystem.models.Customer;
 import com.codeclan.CourseBookingSystem.repositories.bookingRepository.BookingRepository;
 import com.codeclan.CourseBookingSystem.repositories.courseRepository.CourseRepository;
+import com.codeclan.CourseBookingSystem.repositories.customerRepository.CustomerRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,6 +24,9 @@ class CourseBookingSystemApplicationTests {
 	@Autowired
 	BookingRepository bookingRepository;
 
+	@Autowired
+	CustomerRepository customerRepository;
+
 	@Test
 	void contextLoads() {
 	}
@@ -36,5 +41,11 @@ class CourseBookingSystemApplicationTests {
 	public void canFindBookingsByDate() {
 		List<Booking> foundBookings = bookingRepository.findBookingsByDate("15-01-20");
 		assertEquals("15-01-20", foundBookings.get(0).getDate());
+	}
+
+	@Test
+	public void canFindCustomersForCourse() {
+		List<Customer> foundCustomers = customerRepository.findAllCustomersForCourse("Vue");
+		assertEquals(2, foundCustomers.size());
 	}
 }
