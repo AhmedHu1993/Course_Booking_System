@@ -26,7 +26,7 @@ public class CourseRepositoryImpl implements CourseRepositoryCustom {
     public List<Course> findAllCoursesForCustomer(String customerName) {
         List<Course> result = null;
 
-        Customer customer = customerRepository.findCustomerByName(customerName);
+        Customer customer = customerRepository.findCustomerByNameIgnoreCase(customerName);
 
         Session session = entityManager.unwrap(Session.class);
 

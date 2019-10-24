@@ -4,5 +4,5 @@ import com.codeclan.CourseBookingSystem.models.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CustomerRepository extends JpaRepository<Customer, Long>, CustomerRepositoryCustom {
-    Customer findCustomerByName(String name);
+    Customer findCustomerByNameIgnoreCase(String name);
 }

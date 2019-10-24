@@ -6,6 +6,7 @@ import com.codeclan.CourseBookingSystem.repositories.courseRepository.CourseRepo
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -24,7 +25,7 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
     @Transactional
     public List<Customer> findAllCustomersForCourse(String name) {
         List<Customer> result = null;
-        Course course = courseRepository.findCourseByName(name);
+        Course course = courseRepository.findCourseByNameIgnoreCase(name);
 
         Session session = entityManager.unwrap(Session.class);
 
@@ -43,13 +44,13 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
     @Transactional
     public List<Customer> findAllCustomersForTownAndCourse(String customerTown, String courseName) {
         List<Customer> result = null;
-        Course course = courseRepository.findCourseByName(courseName);
+        Course course = courseRepository.findCourseByNameIgnoreCase(courseName);
 
         Session session = entityManager.unwrap(Session.class);
 
         try {
             Criteria criteria = session.createCriteria(Customer.class);
-            criteria.add(Restrictions.eq("town", customerTown));
+            criteria.add(Restrictions.ilike("town", customerTown, MatchMode.EXACT));
             criteria.createAlias("bookings", "bookingAlias");
             criteria.add(Restrictions.eq("bookingAlias.course", course));
 
@@ -64,16 +65,16 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
     @Transactional
     public List<Customer> findAllCustomersForTownAndCourseGreaterThanAge(String customerTown, String courseName, int age) {
         List<Customer> result = null;
-        Course course = courseRepository.findCourseByName(courseName);
+        Course course = courseRepository.findCourseByNameIgnoreCase(courseName);
 
         Session session = entityManager.unwrap(Session.class);
 
         try {
             Criteria criteria = session.createCriteria(Customer.class);
             criteria.add(Restrictions.gt("age", age));
-            criteria.add(Restrictions.eq("town", customerTown));
+            criteria.add(Restrictions.ilike("town", customerTown, MatchMode.EXACT));
             criteria.createAlias("bookings", "bookingAlias");
-            criteria.add(Restrictions.eq("bookingAlias.course", course));
+            criteria.add(Restrictions.ilike("bookingAlias.course", course));
 
             result = criteria.list();
         } catch (HibernateException exception){
