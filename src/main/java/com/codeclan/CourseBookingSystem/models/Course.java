@@ -1,5 +1,7 @@
 package com.codeclan.CourseBookingSystem.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -20,7 +22,9 @@ public class Course {
     @Column(name = "starRating")
     private int starRating;
 
-//    private List<Booking> bookings;
+    @JsonIgnoreProperties("course")
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+    private List<Booking> bookings;
 
 
     public Course(String name, String town, int starRating) {
@@ -62,5 +66,13 @@ public class Course {
 
     public void setStarRating(int starRating) {
         this.starRating = starRating;
+    }
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
     }
 }
