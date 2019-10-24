@@ -23,9 +23,14 @@ public class CustomerController {
         return customerRepository.findAllCustomersForCourse(name);
     }
 
-    @GetMapping(value = "/town-and-course")
+    @GetMapping(value = "/town-course")
     public List<Customer> findAllCustomersForTownAndCourse(@RequestParam String town, String course){
         return customerRepository.findAllCustomersForTownAndCourse(town, course);
+    }
+
+    @GetMapping(value = "/town-course-overage")
+    public List<Customer> findAllCustomersForTownAndCourseGreaterThanAge(@RequestParam String town, String course, int age){
+        return customerRepository.findAllCustomersForTownAndCourseGreaterThanAge(town, course, age);
     }
 
 }

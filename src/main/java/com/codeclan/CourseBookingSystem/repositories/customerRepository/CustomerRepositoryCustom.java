@@ -8,5 +8,6 @@ public interface CustomerRepositoryCustom {
 
     List<Customer> findAllCustomersForCourse(String name);
     List<Customer> findAllCustomersForTownAndCourse(String  customerTown, String courseName);
+    List<Customer> findAllCustomersForTownAndCourseGreaterThanAge(String customerTown, String courseName, int age);
 
 }
